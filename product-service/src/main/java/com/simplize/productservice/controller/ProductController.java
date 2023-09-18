@@ -12,19 +12,19 @@ import com.simplize.productservice.service.form.ProductUpdate;
 import com.simplize.productservice.service.impl.ProductService;
 import com.simplize.productservice.util.Response;
 import com.simplize.productservice.util.ResponsePage;
+
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/product")
 public class ProductController {
 
     public final ProductService productService;
-
-    public ProductController(ProductService productService) {
-        this.productService = productService;
-    }
 
     @GetMapping()
     public ResponsePage<?> findAll(@RequestParam(required = false, defaultValue = "0") Integer page,

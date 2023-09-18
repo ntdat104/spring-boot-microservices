@@ -14,16 +14,14 @@ import com.simplize.productservice.service.dto.ProductDto;
 import com.simplize.productservice.service.form.ProductCreate;
 import com.simplize.productservice.service.form.ProductUpdate;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Service
 public class ProductService implements IProductService {
 
     private final ProductRepository productRepository;
     private final ProductConverter productConverter;
-
-    public ProductService(ProductRepository productRepository, ProductConverter productConverter) {
-        this.productRepository = productRepository;
-        this.productConverter = productConverter;
-    }
 
     @Override
     public ProductDto create(ProductCreate create) {
@@ -76,7 +74,7 @@ public class ProductService implements IProductService {
     public ProductDto update(String id, ProductUpdate update) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy dữ liệu!"));
-        
+
         Product productUpdated = productConverter.convert(update, product);
 
         Product productSaved = productRepository.save(productUpdated);
