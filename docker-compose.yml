@@ -1,0 +1,48 @@
+version: "3.8"
+
+services:
+  mongo-product-service:
+    container_name: mongo-product-service
+    image: mongo:6.0
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data/product-service-data:/data/db
+    networks:
+      - app
+
+  mysql-order-service:
+    container_name: mysql-order-service
+    image: mysql:8.0
+    restart: always
+    environment:
+      - MYSQL_DATABASE=orderdb
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./data/order-service-data:/var/lib/mysql
+    networks:
+      - app
+
+  mysql-inventory-service:
+    container_name: mysql-inventory-service
+    image: mysql:8.0
+    restart: always
+    environment:
+      - MYSQL_DATABASE=inventorydb
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./data/inventory-service-data:/var/lib/mysql
+    networks:
+      - app
+
+networks:
+  app:
+    driver: bridge

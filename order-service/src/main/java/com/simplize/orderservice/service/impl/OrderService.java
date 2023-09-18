@@ -1,10 +1,12 @@
 package com.simplize.orderservice.service.impl;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
 import com.simplize.orderservice.model.Order;
+import com.simplize.orderservice.model.OrderLineItem;
 import com.simplize.orderservice.repository.OrderRepository;
 import com.simplize.orderservice.service.IOrderService;
 import com.simplize.orderservice.service.converter.impl.OrderConverter;
@@ -27,9 +29,18 @@ public class OrderService implements IOrderService {
 
         order.setOrderNumber(UUID.randomUUID().toString());
 
-        Order orderConverted = orderConverter.convert(create, order);
+        List<OrderLineItem> orderLineItems = create.getOrderLineItemDtos().stream().map((entity) -> {
+            OrderLineItem orderLineItem = new OrderLineItem();
+            orderLineItem.setOrder(order);
+            orderLineItem.setPrice(entity.getPrice());
+            orderLineItem.setQuantity(entity.getQuantity());
+            orderLineItem.setSkuCode(entity.getSkuCode());
+            return orderLineItem;
+        }).toList();
 
-        Order orderSaved = orderRepository.save(orderConverted);
+        order.setOrderLineItems(orderLineItems);
+
+        Order orderSaved = orderRepository.save(order);
 
         OrderDto orderDto = orderConverter.convert(orderSaved, new OrderDto());
 

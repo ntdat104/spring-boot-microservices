@@ -19,7 +19,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @Entity
-@Table(name = "order_line_item")
+@Table(name = "tbl_order_line_item")
 public class OrderLineItem extends BaseEntity {
     
     @ManyToOne

@@ -19,7 +19,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @Entity
-@Table(name = "order")
+@Table(name = "tbl_order")
 public class Order extends BaseEntity {
 
     @Column(name = "order_number")

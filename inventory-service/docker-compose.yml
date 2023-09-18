@@ -1,22 +1,22 @@
 version: "3.8"
 
 services:
-  mysql-order-service:
-    container_name: mysql-order-service
+  mysql-inventory-service:
+    container_name: mysql-inventory-service
     image: mysql:8.0
     environment:
-      - MYSQL_DATABASE=orderdb
+      - MYSQL_DATABASE=inventorydb
       - MYSQL_ROOT_PASSWORD=root
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - db:/var/lib/mysql
     networks:
-      - order-service
+      - inventory-service
 
 volumes:
   db:
 
 networks:
-  order-service:
+  inventory-service:
     driver: bridge
