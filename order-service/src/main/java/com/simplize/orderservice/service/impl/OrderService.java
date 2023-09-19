@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.simplize.orderservice.model.Order;
 import com.simplize.orderservice.model.OrderLineItem;
@@ -17,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class OrderService implements IOrderService {
 
     private final OrderConverter orderConverter;
