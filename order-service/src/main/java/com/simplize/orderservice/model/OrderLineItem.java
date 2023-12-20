@@ -19,9 +19,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @Entity
-@Table(name = "tbl_order_line_item")
+@Table(name = "order_line_item")
 public class OrderLineItem extends BaseEntity {
-    
+
     @ManyToOne
     @JoinColumn(name = "order_id")
     @EqualsAndHashCode.Exclude

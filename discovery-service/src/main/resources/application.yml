@@ -1,11 +1,21 @@
+# servcer
 server:
   port: 8761
 
+# spring
 spring:
   application:
-    name: discovery-service
+    name: discovery-server
 
+# eureka
 eureka:
+  instance:
+    hostname: ${service.discovery.uri:localhost}
   client:
     registerWithEureka: false
     fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    waitTimeInMsWhenSyncEmpty: 0
+    response-cache-update-interval-ms: 5000

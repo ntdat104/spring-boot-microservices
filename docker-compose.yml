@@ -1,8 +1,8 @@
 version: "3.8"
 
 services:
-  mongo-product-service:
-    container_name: mongo-product-service
+  mongo-database:
+    container_name: mongo-database
     image: mongo:6.0
     restart: always
     environment:
@@ -11,35 +11,20 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - ./data/product-service-data:/data/db
+      - ./data/mongo-data:/data/db
     networks:
       - app
 
-  mysql-order-service:
-    container_name: mysql-order-service
+  mysql-database:
+    container_name: mysql-database
     image: mysql:8.0
     restart: always
     environment:
-      - MYSQL_DATABASE=orderdb
       - MYSQL_ROOT_PASSWORD=root
     ports:
       - "3306:3306"
     volumes:
-      - ./data/order-service-data:/var/lib/mysql
-    networks:
-      - app
-
-  mysql-inventory-service:
-    container_name: mysql-inventory-service
-    image: mysql:8.0
-    restart: always
-    environment:
-      - MYSQL_DATABASE=inventorydb
-      - MYSQL_ROOT_PASSWORD=root
-    ports:
-      - "3307:3306"
-    volumes:
-      - ./data/inventory-service-data:/var/lib/mysql
+      - ./data/mysql-data:/var/lib/mysql
     networks:
       - app
 
